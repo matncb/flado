@@ -1,37 +1,39 @@
 
-int PinoVelocidade = 3; //Ligado ao pino 1 do L293D  
-int Entrada1 = 2; //Ligado ao pino 2 do L293D  
-int Entrada2 = 7; //Ligado ao pino 7 do L293D 
 char msg;
    
 void setup()  
 {   
   Serial.begin(9600);
-  pinMode(PinoVelocidade, OUTPUT);  
-  pinMode(Entrada1, OUTPUT);  
-  pinMode(Entrada2, OUTPUT);  
-}  
-//Serial.println("Botao pressionado");]
-//c = Serial.read();
 
-void para_motor()  
-{  
-  digitalWrite(Entrada1, LOW);  
-  digitalWrite(Entrada2, LOW);   
-} 
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+
+}  
 
 void loop()  
 { 
   msg = Serial.read();
-  if (msg == 'a')
+  if (msg == 's')
   {
-    int velocidade = 500;  
-    analogWrite(PinoVelocidade, velocidade);   
-    digitalWrite(Entrada1, LOW);  
-    digitalWrite(Entrada2, HIGH);  
-    delay(3000);
-    para_motor();
-    Serial.println("l");
+    for (int i = 0; i<5; i++)
+    {
+      digitalWrite(8, LOW);
+      digitalWrite(9, LOW);
+      delay(75);
+      digitalWrite(10, LOW);
+      digitalWrite(11, LOW);
+      delay(150);
+      digitalWrite(8, HIGH);
+      digitalWrite(9, HIGH);
+      delay(75);
+      digitalWrite(10, HIGH);
+      digitalWrite(11, HIGH);
+      delay(150);
+    }
+    delay(100);
+    Serial.println('l');
     
   }
  

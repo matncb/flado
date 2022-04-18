@@ -5,14 +5,6 @@ import numpy as np
 import imutils
 from prettytable import PrettyTable 
 
-#camera = cv2.VideoCapture('http://192.168.0.101:4747/mjpegfeed?600x600')
-
-def foto():
-    #_, frame = camera.read()
-    frame = cv2.imread('../teste/teste1.jpeg', cv2.IMREAD_COLOR)
-    frame = imutils.resize(frame, width=600)
-    return frame
-
 def analise(frame):
     detected_circles = circle.analise_circle(frame)
 
@@ -38,9 +30,6 @@ def output():
     myTable.add_row(["Probabilidade", str(round((p('green')*100), 2)) + '%', str(round(p('blue')*100, 2)) + '%', str(round(p(0)*100, 2)) + '%']) 
  
     print(myTable)
-
-#analise(foto())
-#output()
 
 pasta =  './cilindros/0/'
 n_amostra = 4

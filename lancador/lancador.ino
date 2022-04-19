@@ -14,10 +14,14 @@ void setup()
 
 void loop()  
 { 
+  digitalWrite(8, HIGH);
+  digitalWrite(9, HIGH);
+  digitalWrite(10, HIGH);
+  digitalWrite(11, HIGH);
   msg = Serial.read();
   if (msg == 's')
   {
-    for (int i = 0; i<5; i++)
+    for (int i = 0; i<3; i++)
     {
       digitalWrite(8, LOW);
       digitalWrite(9, LOW);

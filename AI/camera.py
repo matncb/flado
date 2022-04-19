@@ -3,8 +3,8 @@ import imutils
 import serial
 import time
 
-pasta = './cilindros/0/'
-camera = cv2.VideoCapture(0)
+pasta = './cilindros/666/'
+camera = cv2.VideoCapture(1)
 
 def foto(n):
     _, frame = camera.read()
@@ -12,7 +12,7 @@ def foto(n):
     cv2.imwrite(pasta + str(n) + ".jpeg", frame)
 
 
-arduino = serial.Serial('COM1', 9600)
+arduino = serial.Serial('COM3', 9600)
 
 time.sleep(2)
 arduino.write(b's') #comecar
@@ -25,8 +25,10 @@ while True:
         time.sleep(2)
         foto(n)
         n += 1
-        time.sleep(0.5)
+        time.sleep(2)
         arduino.write(b's')
 
     arduino.flush()
+
+
 

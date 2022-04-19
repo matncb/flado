@@ -8,14 +8,17 @@ from prettytable import PrettyTable
 def analise(frame):
     detected_circles = circle.analise_circle(frame)
 
-    for n in range(len(detected_circles[0])):
-        frame_cor = frame.copy()
-        cor = color.analise_color(circle.cut_circle(frame_cor, detected_circles, n))
-        if cor == "green":
-            cilindros["green"] += 1
-        else:
-            cilindros["blue"] += 1
-
+    try:
+        for n in range(len(detected_circles[0])):
+            frame_cor = frame.copy()
+            cor = color.analise_color(circle.cut_circle(frame_cor, detected_circles, n))
+            if cor == "green":
+                cilindros["green"] += 1
+            else:
+                cilindros["blue"] += 1
+    except:
+        pass
+    
 def p(cor):
     if cor == 'green':
         return cilindros["green"]/qnt
@@ -31,15 +34,15 @@ def output():
  
     print(myTable)
 
-pasta =  './cilindros/0/'
-n_amostra = 4
+pasta =  './cilindros/1/'
+n_amostra = 2
 
-qnt_inicial = 3
+qnt_inicial = 5
 cilindros = {"green": 0, "blue": 0}
 
 qnt = qnt_inicial
 for i in range(n_amostra):
-    frame_path = pasta + str(i) + '.jpeg'
+    frame_path = pasta + str(i) + '.jpg'
     frame = cv2.imread(frame_path, cv2.IMREAD_COLOR)
     frame = imutils.resize(frame, width=600)
 

@@ -15,8 +15,13 @@ def pre(frame):
     #gray_blurred = cv2.blur(gray, (3, 3))
 
     #areas escuras
-    #grey = cv2.threshold(grey,100,255,cv2.THRESH_BINARY_INV)[1]
-    #grey = cv2.morphologyEx(grey, cv2.MORPH_CLOSE, kernel)
+    #grey = cv2.threshold(grey,127,255,cv2.THRESH_BINARY_INV)[1]
+
+    #grey = cv2.adaptiveThreshold(grey,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+            #cv2.THRESH_BINARY,11,2)[1]
+    #grey = cv2.adaptiveThreshold(grey,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
+            #cv2.THRESH_BINARY_INV,11,2)
+    grey = cv2.morphologyEx(grey, cv2.MORPH_CLOSE, kernel)
 
     img = grey
     return img
@@ -25,9 +30,9 @@ def circles(img):
     detected_circles = cv2.HoughCircles(img,
                           cv2.HOUGH_GRADIENT,
                           dp=1,
-                          minDist= 30,
+                          minDist= 5,
                           param1=100,
-                          param2=30,
+                          param2=25,
                           minRadius= 1,
                           maxRadius=300)
 

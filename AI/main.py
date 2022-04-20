@@ -12,10 +12,10 @@ def analise(frame):
         for n in range(len(detected_circles[0])):
             frame_cor = frame.copy()
             cor = color.analise_color(circle.cut_circle(frame_cor, detected_circles, n))
-            if cor == "green":
-                cilindros["green"] += 1
-            else:
+            if cor == "blue":
                 cilindros["blue"] += 1
+            else:
+                cilindros["green"] += 1
     except:
         pass
     
@@ -34,10 +34,10 @@ def output():
  
     print(myTable)
 
-pasta =  './cilindros/1/'
-n_amostra = 2
+pasta =  './cilindros/666/'
+n_amostra = 1
 
-qnt_inicial = 5
+qnt_inicial = 9
 cilindros = {"green": 0, "blue": 0}
 
 qnt = qnt_inicial

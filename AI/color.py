@@ -15,9 +15,9 @@ colors = {'red': (0, 0, 255),
           'blue': (255, 0, 0)}
 '''
 
-lower = {'green': (36, 0, 0)}
-upper = {'green': (89,255,255)}
-colors = {'green': (0, 255, 0)}
+lower = {'blue': (90, 50, 70)}
+upper = {'blue': (128, 255, 255)}
+colors = {'blue': (255, 0, 0)}
 
 minR = 0.5
 

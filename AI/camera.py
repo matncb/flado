@@ -17,15 +17,15 @@ arduino = serial.Serial('COM3', 9600)
 time.sleep(2)
 arduino.write(b's') #comecar
 
-n = 0
+n = 42
 while True:
     msg = str(arduino.readline())
     msg = msg[2:-5]
     if msg == "l":
-        time.sleep(2)
+        time.sleep(4)
         foto(n)
         n += 1
-        time.sleep(2)
+        time.sleep(5)
         arduino.write(b's')
 
     arduino.flush()

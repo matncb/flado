@@ -40,7 +40,7 @@ def analise_color(frame):
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             if radius > minR:
-
+                
                 cv2.circle(frame, (int(x), int(y)),
                         int(radius), colors[key], 2)
                 cv2.putText(frame, key + " face", (int(x-radius), int(y - radius)),

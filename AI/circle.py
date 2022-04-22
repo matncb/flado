@@ -3,6 +3,7 @@ import numpy as np
 import imutils
 
 def pre(frame):
+
     grey = cv2.cvtColor(frame, cv2.COLOR_BGRA2GRAY)
 
     #blur
@@ -15,13 +16,13 @@ def pre(frame):
     #gray_blurred = cv2.blur(gray, (3, 3))
 
     #areas escuras
-    #grey = cv2.threshold(grey,127,255,cv2.THRESH_BINARY_INV)[1]
+    #grey = cv2.threshold(grey,100,255,cv2.THRESH_TOZERO)[1]
 
     #grey = cv2.adaptiveThreshold(grey,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
             #cv2.THRESH_BINARY,11,2)[1]
     #grey = cv2.adaptiveThreshold(grey,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             #cv2.THRESH_BINARY_INV,11,2)
-    grey = cv2.morphologyEx(grey, cv2.MORPH_CLOSE, kernel)
+    #grey = cv2.morphologyEx(grey, cv2.MORPH_CLOSE, kernel)
 
     img = grey
     return img
@@ -31,10 +32,10 @@ def circles(img):
                           cv2.HOUGH_GRADIENT,
                           dp=1,
                           minDist= 5,
-                          param1=100,
-                          param2=25,
+                          param1=10,
+                          param2=22,
                           minRadius= 1,
-                          maxRadius=300)
+                          maxRadius=15)
 
     return detected_circles
 
@@ -46,8 +47,8 @@ def see_circles(detected_circles, img):
     
         for pt in detected_circles[0, :]: 
             a, b, r = pt[0], pt[1], pt[2] 
-            cv2.circle(img, (a, b), r, (0, 255, 0), 2) 
-            cv2.circle(img, (a, b), 1, (0, 0, 255), 3) 
+            cv2.circle(img, (a, b), r, (0, 255, 0), 1) 
+            cv2.circle(img, (a, b), 1, (0, 0, 255), 1) 
         cv2.imshow("Detected Circle", img) 
         cv2.waitKey(0) 
 
@@ -55,7 +56,7 @@ def analise_circle(frame):
     img = pre(frame)
     detected_circles = circles(img)
     show_img = frame.copy()
-    see_circles(detected_circles, show_img)
+    #see_circles(detected_circles, show_img)
     return detected_circles
 
 

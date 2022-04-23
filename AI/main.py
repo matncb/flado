@@ -15,30 +15,30 @@ def analise(frame):
             if cor == "blue":
                 cilindros["blue"] += 1
             else:
-                cilindros["green"] += 1
+                cilindros["red"] += 1
     except:
         pass
     
 def p(cor):
-    if cor == 'green':
-        return cilindros["green"]/qnt
+    if cor == 'red':
+        return cilindros["red"]/qnt
     if cor == 'blue':
         return cilindros['blue']/qnt
     else:
-        return (qnt - cilindros['green'] - cilindros['blue'])/qnt
+        return (qnt - cilindros['red'] - cilindros['blue'])/qnt
 
 def output():
-    myTable = PrettyTable(["", "Face 1 (verde)", "Face 2 (azul)", "  Lado  "]) 
-    myTable.add_row(["Quantidade", cilindros['green'], cilindros['blue'], (qnt - cilindros['green'] - cilindros['blue'])])
-    myTable.add_row(["Probabilidade", str(round((p('green')*100), 2)) + '%', str(round(p('blue')*100, 2)) + '%', str(round(p(0)*100, 2)) + '%']) 
+    myTable = PrettyTable(["", "Face 1 (vermelho)", "Face 2 (azul)", "  Lado  "]) 
+    myTable.add_row(["Quantidade", cilindros['red'], cilindros['blue'], (qnt - cilindros['red'] - cilindros['blue'])])
+    myTable.add_row(["Probabilidade", str(round((p('red')*100), 2)) + '%', str(round(p('blue')*100, 2)) + '%', str(round(p(0)*100, 2)) + '%']) 
  
     print(myTable)
 
-pasta =  './cilindros/1.1/'
-n_amostra = 65
+pasta =  './cilindros/1.3/'
+n_amostra = 100
 
-qnt_inicial = 9
-cilindros = {"green": 0, "blue": 0}
+qnt_inicial = 16
+cilindros = {"red": 0, "blue": 0}
 
 qnt = qnt_inicial
 for i in range(n_amostra):

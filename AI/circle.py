@@ -32,8 +32,8 @@ def circles(img):
                           cv2.HOUGH_GRADIENT,
                           dp=1,
                           minDist= 5,
-                          param1=10,
-                          param2=22,
+                          param1=70,
+                          param2=18,
                           minRadius= 1,
                           maxRadius=15)
 

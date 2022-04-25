@@ -66,7 +66,7 @@ void fase(int n)
       digitalWrite(11, LOW);
       digitalWrite(12, LOW);
       digitalWrite(13, LOW);
-      delay(100);
+      delay(300);
       digitalWrite(6, HIGH);
       digitalWrite(7, HIGH);
       digitalWrite(8, HIGH);
@@ -75,7 +75,7 @@ void fase(int n)
       digitalWrite(11, HIGH);
       digitalWrite(12, HIGH);
       digitalWrite(13, HIGH);
-      delay(100);
+      delay(300);
     }
 }
 

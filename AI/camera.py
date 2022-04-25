@@ -1,8 +1,7 @@
 import cv2
 import serial
 import time
-
-pasta = './cilindros/1.3/'
+pasta = './cilindros/1.6/'
 camera = cv2.VideoCapture(1)
 
 def foto(n):
@@ -12,7 +11,8 @@ def foto(n):
 
 arduino = serial.Serial('COM8', 9600)
 
-n = 68 #muda com a foto
+n = 85
+#muda com a foto
 cont = 0 #sempre assim
 
 time.sleep(2)
@@ -23,8 +23,8 @@ msg = None
 while True:
     if cont == 10:
         print('contador : ' + str(cont))
-        print('Esperando 1 min')
-        time.sleep(55)
+        print('Esperando 30s')
+        time.sleep(25)
         print('5 seg')
         time.sleep(5)
         cont = 0
@@ -39,7 +39,7 @@ while True:
         n += 1
         cont += 1
 
-        time.sleep(2)
+        time.sleep(0.5)
         arduino.write(b's')
     else:
         arduino.write(b's')

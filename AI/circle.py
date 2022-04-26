@@ -12,10 +12,11 @@ def pre(frame):
     high_white = np.array([179, 255, 255])
     white_mask = cv2.inRange(hsv, low_white, high_white)
 
-    low_brown = np.array([20, 50, 100])
-    high_brown = np.array([30, 100, 120])
+    low_brown = np.array([5, 10, 10])
+    high_brown = np.array([70, 140, 180])
     brown_mask = cv2.inRange(hsv, low_brown, high_brown)
 
+    '''
     low_blue = np.array([25, 50, 50])
     high_blue = np.array([130, 255, 255])
     blue_mask = cv2.inRange(hsv, low_blue, high_blue)
@@ -23,15 +24,16 @@ def pre(frame):
     low_red = np.array([159, 50, 70])
     high_red = np.array([180, 255, 255])
     red_mask = cv2.inRange(hsv, low_red, high_red)
+    '''
 
-    mask = white_mask | brown_mask
+    mask = white_mask & cv2.bitwise_not(brown_mask)
     masked = cv2.bitwise_and(frame, frame, mask=mask)
     #cv2.imshow("mask", masked)
     #cv2.waitKey(0)
+    #grey = mask
 
 
-    grey = masked
-    grey = cv2.cvtColor(masked, cv2.COLOR_BGRA2GRAY)
+    grey = cv2.cvtColor(frame, cv2.COLOR_BGRA2GRAY)
 
     #blur
     kernel = np.ones((5,5),np.uint8)

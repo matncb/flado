@@ -3,35 +3,17 @@ import numpy as np
 import imutils
 
 
-
 def pre(frame):
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    low_white = np.array([0, 42, 0])
-    high_white = np.array([179, 255, 255])
-    white_mask = cv2.inRange(hsv, low_white, high_white)
+    low = np.array([0, 42, 0])
+    high = np.array([179, 255, 255])
+    white_mask = cv2.inRange(hsv, low, high)
+    result = cv2.bitwise_and(frame, frame, mask=white_mask)
+    
 
-    low_brown = np.array([20, 50, 100])
-    high_brown = np.array([30, 100, 120])
-    brown_mask = cv2.inRange(hsv, low_brown, high_brown)
-
-    low_blue = np.array([25, 50, 50])
-    high_blue = np.array([130, 255, 255])
-    blue_mask = cv2.inRange(hsv, low_blue, high_blue)
-
-    low_red = np.array([159, 50, 70])
-    high_red = np.array([180, 255, 255])
-    red_mask = cv2.inRange(hsv, low_red, high_red)
-
-    mask = white_mask | brown_mask
-    masked = cv2.bitwise_and(frame, frame, mask=mask)
-    #cv2.imshow("mask", masked)
-    #cv2.waitKey(0)
-
-
-    grey = masked
-    grey = cv2.cvtColor(masked, cv2.COLOR_BGRA2GRAY)
+    grey = white_mask
 
     #blur
     kernel = np.ones((5,5),np.uint8)
@@ -60,7 +42,7 @@ def circles(img):
                           dp=1,
                           minDist= 5,
                           param1=70,
-                          param2=18,
+                          param2=20,
                           minRadius= 1,
                           maxRadius=15)
 
@@ -76,25 +58,12 @@ def see_circles(detected_circles, img):
             a, b, r = pt[0], pt[1], pt[2] 
             cv2.circle(img, (a, b), r, (0, 255, 0), 1) 
             cv2.circle(img, (a, b), 1, (0, 0, 255), 1) 
-        cv2.imshow("Detected Circle", img) 
+        cv2.imshow(key, img) 
         cv2.waitKey(0) 
 
 def analise_circle(frame):
     img = pre(frame)
     detected_circles = circles(img)
     show_img = frame.copy()
-    #see_circles(detected_circles, show_img)
+    see_circles(detected_circles, show_img)
     return detected_circles
-
-
-def cut_circle(frame, detected_circles, n):
-    x, y, r =  [round(i) for i in detected_circles[0][n]]
-
-    dimention = [frame.shape[0], frame.shape[1]]
-    r_mask = max(dimention)
-    cv2.circle(frame, (x, y), r+(round(r_mask/2)), (255, 255, 255), r_mask) 
-    return frame
-
-
-
-

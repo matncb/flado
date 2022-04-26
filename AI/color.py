@@ -49,7 +49,9 @@ def analise_color(frame):
                 
                 cv2.imshow("Frame", frame)
                 cv2.waitKey(0)
+
                 '''
+                
 
                 return key
             else:

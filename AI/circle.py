@@ -56,9 +56,9 @@ def circles(img):
     detected_circles = cv2.HoughCircles(img,
                           cv2.HOUGH_GRADIENT,
                           dp=1,
-                          minDist= 5,
-                          param1=70,
-                          param2=18,
+                          minDist= 10,
+                          param1=50,
+                          param2=13,
                           minRadius= 1,
                           maxRadius=15)
 
@@ -81,7 +81,7 @@ def analise_circle(frame):
     img = pre(frame)
     detected_circles = circles(img)
     show_img = frame.copy()
-    #see_circles(detected_circles, show_img)
+    see_circles(detected_circles, show_img)
     return detected_circles
 
 

@@ -79,15 +79,29 @@ void fase(int n)
     }
 }
 
+int cont = 0;
 
 void loop()  
 { 
+  /*
   if (Serial.read() == 's')
   {
     nfase(4);
     delay(200);
     Serial.println('l');
+  }*/
+
+  nfase(4);
+  delay(4000);
+  Serial.println('l');
+  cont++;
+  if (cont == 10)
+  {
+    delay(30000);
+    cont = 0;
   }
+  
+  
 
 }  
     

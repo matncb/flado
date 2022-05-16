@@ -1,7 +1,7 @@
 import cv2
 import serial
 import time
-pasta = './cilindros/V3_2.0/1.8_v3_2.0/'
+pasta = './cilindros/V3/1.9_v3/'
 camera = cv2.VideoCapture(1)
 
 def foto(n):

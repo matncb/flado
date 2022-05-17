@@ -1,7 +1,7 @@
 import cv2
 import serial
 import time
-pasta = './cilindros/V3_2.0/2.4_v3_2.0/'
+pasta = './cilindros/V3_2.0/2.5_v3_2.0/'
 camera = cv2.VideoCapture(1)
 
 def foto(n):
@@ -11,7 +11,7 @@ def foto(n):
 
 arduino = serial.Serial('COM9', 9600)
 
-n = 0 #muda com a foto
+n = 10 #muda com a foto
 cont = 0 #sempre assim
 
 #arduino.write(b's') #comecar

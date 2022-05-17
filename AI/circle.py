@@ -1,3 +1,149 @@
+import cv2
+from cv2 import imshow 
+import numpy as np 
+import imutils
+
+#kernels
+
+sharp_kernel1 = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
+sharp_kernel2 = np.array([[0, -1, 0], [-1, 5,-1], [0, -1, 0]])
+laplacian_kernel = np.array([[0,0,-1,0,0],[0,-1,-2,-1,0],[-1,-2,16,-2,-1],[0,-1,-2,-1,0],[0,0,-1,0,0]])
+
+def sharp_blur(frame, kernel):
+    frame = cv2.GaussianBlur(frame, (3, 3), 0)
+    image_sharp = cv2.filter2D(src=frame, ddepth=-1, kernel = kernel)
+    image_sharp = cv2.GaussianBlur(image_sharp, (3, 3), 0)
+
+    return image_sharp
+
+def laplacian(frame):
+    ddepth = cv2.CV_16S
+    kernel_size = 3
+
+    #laplacian = cv2.filter2D(src=frame, ddepth = -1, kernel = laplacian_kernel)
+
+    laplacian = cv2.Laplacian(frame, ddepth, ksize=3)
+    laplacian = cv2.convertScaleAbs(laplacian)
+
+    return laplacian
+
+def threshold(frame):
+    grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    thres = cv2.threshold(grey,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
+    thres = sharp_blur(thres, sharp_kernel2)
+
+    return thres
+
+def pre(frame):
+    blur = sharp_blur(frame, sharp_kernel1)
+    laplaciana = laplacian(blur)
+    thres = threshold(laplaciana)
+
+    return cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY)
+
+def circles(img):
+    detected_circles = cv2.HoughCircles(img,
+                          cv2.HOUGH_GRADIENT,
+                          dp=1,
+                          minDist= 5,
+                          param1=50,
+                          param2=30,
+                          minRadius= 1,
+                          maxRadius=15)
+
+    return detected_circles
+
+
+def see_circles(detected_circles, img):
+    if detected_circles is not None: 
+    
+        detected_circles = np.uint16(np.around(detected_circles)) 
+    
+        for pt in detected_circles[0, :]: 
+            a, b, r = pt[0], pt[1], pt[2] 
+            cv2.circle(img, (a, b), r, (0, 255, 0), 1) 
+            cv2.circle(img, (a, b), 1, (0, 0, 255), 1) 
+        cv2.imshow("Detected Circle", img) 
+        cv2.waitKey(0) 
+
+def analise_circle(frame):
+    img = pre(frame)
+    detected_circles = circles(img)
+    show_img = frame.copy()
+    see_circles(detected_circles, show_img)
+    return detected_circles
+
+
+def cut_circle(frame, detected_circles, n):
+    x, y, r =  [round(i) for i in detected_circles[0][n]]
+
+    dimention = [frame.shape[0], frame.shape[1]]
+    r_mask = max(dimention)
+    cv2.circle(frame, (x, y), r+(round(r_mask/2)), (255, 255, 255), r_mask) 
+    return frame
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@matncb 
+matncb
+/
+flado
+Private
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+Settings
+flado/AI/circle.py /
+@mavivaldi
+mavivaldi kopenhague
+Latest commit fc254ca 3 days ago
+ History
+ 2 contributors
+@matncb@mavivaldi
+98 lines (67 sloc)  2.69 KB
+   
 import cv2 
 import numpy as np 
 import imutils
@@ -95,4 +241,5 @@ def cut_circle(frame, detected_circles, n):
 
 
 
+'''
 

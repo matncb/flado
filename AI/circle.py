@@ -10,9 +10,9 @@ sharp_kernel2 = np.array([[0, -1, 0], [-1, 5,-1], [0, -1, 0]])
 laplacian_kernel = np.array([[0,0,-1,0,0],[0,-1,-2,-1,0],[-1,-2,16,-2,-1],[0,-1,-2,-1,0],[0,0,-1,0,0]])
 
 def sharp_blur(frame, kernel):
-    frame = cv2.GaussianBlur(frame, (3, 3), 0)
+    frame = cv2.GaussianBlur(frame, (5, 5), 0)
     image_sharp = cv2.filter2D(src=frame, ddepth=-1, kernel = kernel)
-    image_sharp = cv2.GaussianBlur(image_sharp, (3, 3), 0)
+    image_sharp = cv2.GaussianBlur(image_sharp, (5, 5), 0)
 
     return image_sharp
 
@@ -20,36 +20,72 @@ def laplacian(frame):
     ddepth = cv2.CV_16S
     kernel_size = 3
 
-    #laplacian = cv2.filter2D(src=frame, ddepth = -1, kernel = laplacian_kernel)
+    laplacian = cv2.filter2D(src=frame, ddepth = -1, kernel = laplacian_kernel)
 
-    laplacian = cv2.Laplacian(frame, ddepth, ksize=3)
-    laplacian = cv2.convertScaleAbs(laplacian)
+    #laplacian = cv2.Laplacian(frame, ddepth = -1, ksize=3)
+    #laplacian = cv2.convertScaleAbs(laplacian)
 
     return laplacian
 
 def threshold(frame):
-    grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    thres = cv2.threshold(grey,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
-    thres = sharp_blur(thres, sharp_kernel2)
+    thres = cv2.threshold(frame,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
+    thres = sharp_blur(thres, sharp_kernel1)
 
     return thres
 
 def pre(frame):
-    blur = sharp_blur(frame, sharp_kernel1)
-    laplaciana = laplacian(blur)
-    thres = threshold(laplaciana)
+    
+    kernel = np.ones((3,3),np.uint8)
+    
+    frame = sharp_blur(frame, sharp_kernel1)
 
-    return cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    low_white = np.array([0, 42, 0])
+    high_white = np.array([179, 255, 255]) #90 to 179
+    white_mask = cv2.inRange(hsv, low_white, high_white)
+
+    low_brown = np.array([5, 10, 10])
+    high_brown = np.array([80, 180, 200])
+    brown_mask = cv2.inRange(hsv, low_brown, high_brown)
+
+    low_falha = np.array([90, 30, 100])
+    high_falha = np.array([115, 80, 160])
+    falha_mask = cv2.inRange(hsv, low_falha, high_falha)
+
+    mask =  white_mask & cv2.bitwise_not(falha_mask) & cv2.bitwise_not(brown_mask)
+    masked = cv2.bitwise_and(frame, frame, mask=mask)
+    
+    frame = mask
+    
+    frame = sharp_blur(frame, sharp_kernel1)
+    frame = laplacian(frame)
+    
+    frame = threshold(frame)
+    frame = sharp_blur(frame, sharp_kernel1)
+   
+    
+    return frame
+
+def old_pre(frame):
+    
+    grey = cv2.GaussianBlur(grey,(9,9),0)
+    grey = cv2.morphologyEx(grey, cv2.MORPH_OPEN, kernel)
+    grey = cv2.morphologyEx(grey, cv2.MORPH_CLOSE, kernel)
+
+    return grey
+
+    
 
 def circles(img):
     detected_circles = cv2.HoughCircles(img,
                           cv2.HOUGH_GRADIENT,
                           dp=1,
-                          minDist= 5,
-                          param1=50,
-                          param2=30,
-                          minRadius= 1,
-                          maxRadius=15)
+                          minDist= 10,
+                          param1=20,
+                          param2=18,
+                          minRadius= 6,
+                          maxRadius=12)
 
     return detected_circles
 
@@ -70,7 +106,7 @@ def analise_circle(frame):
     img = pre(frame)
     detected_circles = circles(img)
     show_img = frame.copy()
-    see_circles(detected_circles, show_img)
+    #see_circles(detected_circles, show_img)
     return detected_circles
 
 
@@ -90,59 +126,7 @@ def cut_circle(frame, detected_circles, n):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 '''
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@matncb 
-matncb
-/
-flado
-Private
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-Settings
-flado/AI/circle.py /
-@mavivaldi
-mavivaldi kopenhague
-Latest commit fc254ca 3 days ago
- History
- 2 contributors
-@matncb@mavivaldi
-98 lines (67 sloc)  2.69 KB
    
 import cv2 
 import numpy as np 

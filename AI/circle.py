@@ -97,7 +97,7 @@ def see_circles(detected_circles, img):
     
         for pt in detected_circles[0, :]: 
             a, b, r = pt[0], pt[1], pt[2] 
-            cv2.circle(img, (a, b), r, (0, 255, 0), 1) 
+            cv2.circle(img, (a, b), r, (0, 255, 0), 2) 
             cv2.circle(img, (a, b), 1, (0, 0, 255), 1) 
         cv2.imshow("Detected Circle", img) 
         cv2.waitKey(0) 
@@ -106,7 +106,7 @@ def analise_circle(frame):
     img = pre(frame)
     detected_circles = circles(img)
     show_img = frame.copy()
-    #see_circles(detected_circles, show_img)
+    see_circles(detected_circles, show_img)
     return detected_circles
 
 

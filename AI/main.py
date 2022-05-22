@@ -34,14 +34,14 @@ def output():
  
     print(myTable)
 
-pasta =  './cilindros/V3/1.4_v3/'
+pasta =  './cilindros/V3/2.5_v3/'
 n_amostra = 100
 
 qnt_inicial = 16
 cilindros = {"red": 0, "blue": 0}
 
 qnt = qnt_inicial
-for i in range(62, n_amostra):
+for i in range(n_amostra):
     frame_path = pasta + str(i) + '.jpeg'
     frame = cv2.imread(frame_path, cv2.IMREAD_COLOR)
     frame = imutils.resize(frame, width=600)

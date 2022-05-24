@@ -7,9 +7,11 @@ from prettytable import PrettyTable
 
 def analise(frame):
     detected_circles = circle.analise_circle(frame)
+    cont = 0
 
     try:
         for n in range(len(detected_circles[0])):
+            cont += 1
             frame_cor = frame.copy()
             cor = color.analise_color(circle.cut_circle(frame_cor, detected_circles, n))
             if cor == "blue":
@@ -18,6 +20,8 @@ def analise(frame):
                 cilindros["red"] += 1
     except:
         pass
+
+    return cont
     
 def p(cor):
     if cor == 'red':
@@ -34,11 +38,14 @@ def output():
  
     print(myTable)
 
-pasta =  './cilindros/V3/2.5_v3/'
+pasta =  './cilindros/V3/1.8_v3/'
+pasta2 = './cilindros/V3_2.0/1.8_v3_2.0/'
 n_amostra = 100
 
 qnt_inicial = 16
 cilindros = {"red": 0, "blue": 0}
+
+valores = []
 
 qnt = qnt_inicial
 for i in range(n_amostra):
@@ -46,11 +53,32 @@ for i in range(n_amostra):
     frame = cv2.imread(frame_path, cv2.IMREAD_COLOR)
     frame = imutils.resize(frame, width=600)
 
-    analise(frame)
+    cont = qnt_inicial - analise(frame)
+    valores.append(cont/qnt_inicial)
+
     qnt += qnt_inicial
 
+for i in range(n_amostra):
+    frame_path = pasta2 + str(i) + '.jpeg'
+    frame = cv2.imread(frame_path, cv2.IMREAD_COLOR)
+    frame = imutils.resize(frame, width=600)
+
+    cont = qnt_inicial - analise(frame)
+    valores.append(cont/qnt_inicial)
+
+    qnt += qnt_inicial
+    
 qnt -= qnt_inicial
 
 output()
+
+I = 0
+for i in valores:
+    o = (i - p(0))**2
+    I += o
+
+S = (I/(200*199))**(1/2)
+print(valores)
+print(S)
 
 

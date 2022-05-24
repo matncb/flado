@@ -106,7 +106,7 @@ def analise_circle(frame):
     img = pre(frame)
     detected_circles = circles(img)
     show_img = frame.copy()
-    #see_circles(detected_circles, show_img)
+    see_circles(detected_circles, show_img)
     return detected_circles
 
 

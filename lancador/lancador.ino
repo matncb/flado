@@ -20,7 +20,6 @@ void setup()
   digitalWrite(11, HIGH);
   digitalWrite(12, HIGH);
   digitalWrite(13, HIGH);
-
 }  
 
 void nfase(int n)
@@ -79,6 +78,60 @@ void fase(int n)
     }
 }
 
+void lateral_1(int n)
+{
+    for (int i = 0; i<n; i++)
+    {
+      digitalWrite(6, LOW);
+      digitalWrite(7, LOW);
+      digitalWrite(8, LOW);
+      digitalWrite(9, LOW);
+      delay(300);
+      digitalWrite(6, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(9, HIGH);
+      delay(1000);
+      digitalWrite(6, LOW);
+      digitalWrite(7, LOW);
+      digitalWrite(8, LOW);
+      digitalWrite(9, LOW);
+      delay(300);
+      digitalWrite(6, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(9, HIGH);
+      delay(300);
+    }
+}
+
+void lateral_2(int n)
+{
+    for (int i = 0; i<n; i++)
+    {
+      digitalWrite(10, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(12, LOW);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(10, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(13, HIGH);
+      delay(1000);
+      digitalWrite(10, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(12, LOW);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(10, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(13, HIGH);
+      delay(300);
+    }
+}
+
 int cont = 0;
 
 void loop()  
@@ -87,11 +140,15 @@ void loop()
   if (Serial.read() == 's')
   {
     nfase(4);
-    delay(200);
+    delay(4000);
     Serial.println('l');
   }*/
 
-  nfase(4);
+  lateral_1(2);
+  delay(4000);
+  Serial.println('l');
+  cont++;
+  lateral_2(2);
   delay(4000);
   Serial.println('l');
   cont++;
@@ -100,8 +157,5 @@ void loop()
     delay(30000);
     cont = 0;
   }
-  
-  
-
 }  
     

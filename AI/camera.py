@@ -1,7 +1,7 @@
 import cv2
 import serial
 import time
-pasta = './cilindros/camurca/V1/1.7_v1/'
+pasta = './cilindros/camurca/V1_2.0/0.3_v1_2.0/'
 camera = cv2.VideoCapture(0)
 
 def foto(n):
@@ -11,7 +11,7 @@ def foto(n):
 
 arduino = serial.Serial('COM3', 9600)
 
-n =0 #muda com a foto
+n = 51 #muda com a foto
 cont = 0 #sempre assim
 
 #arduino.write(b's') #comecar
@@ -48,7 +48,7 @@ while True:
     if msg:
         print('contador: ' + str(cont))
         msg = None
-        time.sleep(4)
+        time.sleep(3.5)
         foto(n)
         n += 1
         cont += 1 

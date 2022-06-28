@@ -38,8 +38,8 @@ def output():
  
     print(myTable)
 
-pasta =  './cilindros/V3/1.8_v3/'
-pasta2 = './cilindros/V3_2.0/1.8_v3_2.0/'
+pasta =  './cilindros/camurca/V2/0.7_v2/'
+pasta2 = './cilindros/camurca/V2_2.0/0.7_v2_2.0/'
 n_amostra = 100
 
 qnt_inicial = 16
@@ -78,7 +78,6 @@ for i in valores:
     I += o
 
 S = (I/(200*199))**(1/2)
-print(valores)
 print(S)
 
 

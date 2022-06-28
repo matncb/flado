@@ -138,8 +138,8 @@ void loop()
 { 
   
   nfase(4);
-  delay(4000);
   Serial.println('l');
+  delay(4000);
   cont++;
   
   /*

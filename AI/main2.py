@@ -34,7 +34,7 @@ def output():
  
     print(myTable)
 
-pasta =  './cilindros/camurca/V1/1.8_v1/'
+pasta =  './cilindros/camurca/V2/1.2_v2/'
 n_amostra = 100
 
 qnt_inicial = 16

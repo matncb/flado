@@ -40,7 +40,7 @@ def analise_color(frame):
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             if radius > minR:
-
+                
                 '''
                 cv2.circle(frame, (int(x), int(y)),
                         int(radius), colors[key], 2)
@@ -49,10 +49,9 @@ def analise_color(frame):
                 
                 cv2.imshow("Frame", frame)
                 cv2.waitKey(0)
-
+                
                 '''
                 
-
                 return key
             else:
                 pass

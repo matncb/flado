@@ -30,7 +30,7 @@ def p(cor):
 
 
 
-pasta =  './cilindros/cartolina/V3/1.4_v3/'
+pasta =  './cilindros/cartolina/V3/1.5_v3/'
 n_amostra_parcial = 25
 n_amostra_total = 100
 

@@ -10,7 +10,7 @@ for i in range(N):
     importlib.reload(aleatorio)
     resultados.append(aleatorio.pegar())
 
-workbook = xlsxwriter.Workbook('dist2.xlsx')
+workbook = xlsxwriter.Workbook('dist1_5.xlsx')
 worksheet = workbook.add_worksheet()
 
 for i in range(len(resultados)):
